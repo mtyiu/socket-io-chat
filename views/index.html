@@ -45,6 +45,16 @@
 		<script src="/socket.io/socket.io.js"></script>
 		<script>
 			var socket = io();
+			var $m = $( '#m' );
+			var $messages = $( '#messages' );
+			$( '#form' ).on( 'submit', function( e ) {
+				e.preventDefault();
+				socket.emit( 'chat', $m.val() );
+				$m.val( '' );
+			} );
+			socket.on( 'chat', function( data ) {
+				$messages.append( '<li>' + data + '</li>' );
+			} );
 		</script>
 	</body>
 </html>
